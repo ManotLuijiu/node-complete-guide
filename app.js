@@ -30,7 +30,7 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(adminRoutes);
+app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
