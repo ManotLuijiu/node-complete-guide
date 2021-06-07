@@ -1,9 +1,28 @@
 const winston = require('winston');
 require('winston-daily-rotate-file');
+require('winston-mongodb');
 const path = require('path');
 const PROJECT_ROOT = path.join(__dirname, '..');
 
 const highlight = require('cli-highlight').highlight;
+const arrow = '\u276F\u276F\u25B6';
+
+const logConfig = {
+  transports: [new winston.transports.Console()],
+  format: winston.format.combine(
+    winston.format.label({
+      label: `Label🏷️`,
+    }),
+    winston.format.timestamp({
+      format: 'DD-MMM-YYYY HH:mm:ss',
+    }),
+    winston.format.align(),
+    winston.format.printf(
+      (info) =>
+        `${info.level}: ${info.label} : ${[info.timestamp]}: ${info.message}`
+    )
+  ),
+};
 
 // const options = {
 //   file: {
@@ -33,7 +52,10 @@ const highlight = require('cli-highlight').highlight;
 // };
 
 const logger = winston.createLogger({
+  // File transport
+
   transports: [
+    // Daily Rotation File
     new winston.transports.DailyRotateFile({
       filename: `${PROJECT_ROOT}/logs/nodejs-guide-%DATE%.log`,
       datePattern: 'YYYY-MM-DD',
@@ -41,6 +63,8 @@ const logger = winston.createLogger({
       maxSize: '20m',
       maxFiles: '14d',
     }),
+
+    // Normal Files
     new winston.transports.File({
       level: 'info',
       filename: `${PROJECT_ROOT}/logs/server.log`,
@@ -59,11 +83,28 @@ const logger = winston.createLogger({
       maxFiles: 5,
       colorize: true,
     }),
-    new winston.transports.Console({
-      level: 'debug',
-      handleExceptions: true,
-      json: false,
-      colorize: true,
+
+    // Console Log
+    new winston.transports.Console(logConfig),
+
+    // MongoDB Transport
+    new winston.transports.MongoDB({
+      level: 'error',
+      // mongo database connection link
+      db: process.env.MONGO_URI,
+      options: {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+      },
+      // A collection to save json formatted logs
+      collection: 'server_logs',
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        // Convert logs to a json format
+        winston.format.json(),
+        winston.format.errors({ stack: true }),
+        winston.format.metadata()
+      ),
     }),
   ],
   exitOnError: false,
@@ -71,7 +112,7 @@ const logger = winston.createLogger({
 
 logger.stream = {
   write: function (message) {
-    logger.info(message);
+    logger.info(message, { meta: { serverLogs: 'server-logs' } });
   },
 };
 
@@ -107,17 +148,18 @@ function formatLogArguments(args) {
   if (stackInfo) {
     // get file path relative to project root
     // const calleeStr = '(' + stackInfo.relativePath + ':' + stackInfo.line + ')';
-    const calleeStr = `(${stackInfo.relativePath}:${stackInfo.line})`;
+    const calleeStr = `(${stackInfo.relativePath}:${stackInfo.line})${arrow}`;
     // console.log(calleeStr);
     const calleeStrHl = highlight(calleeStr);
     // console.log(calleeStrHl);
 
     if (typeof args[0] === 'string') {
-      console.log(calleeStrHl);
+      console.log(calleeStrHl, args[0]);
       // args[0] = calleeStr + ' ' + args[0];
       args[0] = `log => ${args[0]}`;
     } else {
-      console.log(calleeStrHl);
+      const logging = highlight('Logging below\u2B07 ');
+      console.log(calleeStrHl, logging);
       console.log(JSON.stringify(args, null, 2));
       args.unshift(calleeStr);
     }

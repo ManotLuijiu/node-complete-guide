@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const path = require('path');
 const rfs = require('rotating-file-stream');
+require('dotenv').config();
 
 // const logger = require('./util/loggerEasy');
 const logger = require('./util/loggerWithLineNew');
