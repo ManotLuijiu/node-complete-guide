@@ -156,7 +156,7 @@ function formatLogArguments(args) {
     if (typeof args[0] === 'string') {
       console.log(calleeStrHl, args[0]);
       // args[0] = calleeStr + ' ' + args[0];
-      args[0] = `log => ${args[0]}`;
+      args[0] = `log${arrow} ${args[0]}`;
     } else {
       const logging = highlight('Logging below\u2B07 ');
       console.log(calleeStrHl, logging);

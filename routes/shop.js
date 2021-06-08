@@ -5,12 +5,12 @@ const logger = require('../util/logger');
 
 const rootDir = require('../util/path');
 const adminRoutes = require('./admin');
-const { products } = adminRoutes;
 
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-  res.render('shop', { products, docTitle: 'Shop' });
+  const { products } = adminRoutes;
+  res.render('shop', { prods: products, docTitle: 'Shop' });
 });
 
 module.exports = router;
