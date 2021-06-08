@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 
 const rootDir = require('../util/path');
-const logger = require('../util/loggerWithLineNew');
+const logger = require('../util/logger');
 
 const router = express.Router();
 

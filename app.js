@@ -6,7 +6,7 @@ const rfs = require('rotating-file-stream');
 require('dotenv').config();
 
 // const logger = require('./util/loggerEasy');
-const logger = require('./util/loggerWithLineNew');
+const logger = require('./util/logger');
 const { stream } = logger;
 const morgan = require('morgan');
 

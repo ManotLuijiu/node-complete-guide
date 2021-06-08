@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 // const logger = require('../util/loggerEasy');
-const logger = require('../util/loggerWithLineNew');
+const logger = require('../util/logger');
 
 const rootDir = require('../util/path');
 const adminRoutes = require('./admin');
