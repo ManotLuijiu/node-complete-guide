@@ -10,14 +10,14 @@ const products = [];
 logger.info(products);
 
 router.get('/add-product', (req, res, next) => {
-  logger.info(req.url);
-  res.sendFile(path.join(rootDir, 'views', 'add-product.html'));
+  res.render('add-product', {
+    pageTitle: 'เพิ่มสินค้า',
+    path: '/admin/add-product',
+  });
 });
 
 router.post('/add-product', (req, res, next) => {
   const { title } = req.body;
-  logger.debug(req.body);
-  logger.debug(title);
   products.push({ title: title });
   res.redirect('/');
 });

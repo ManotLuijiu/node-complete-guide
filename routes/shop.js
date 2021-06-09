@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get('/', (req, res, next) => {
   const { products } = adminRoutes;
-  res.render('shop', { prods: products, docTitle: 'Shop' });
+  res.render('shop', { prods: products, pageTitle: 'ร้านค้า', path: '/' });
 });
 
 module.exports = router;

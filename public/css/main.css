@@ -22,6 +22,12 @@ main {
   background-color: #0984e3;
   padding: 0 1.5rem;
 }
+.main-header__main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 .main-header__nav {
   height: 100%;
   display: flex;
@@ -45,6 +51,10 @@ main {
 .main-header__item a:active,
 .main-header__item a.active {
   color: #0f0f0f;
+}
+.main-header__404 {
+  font-size: 4rem;
+  color: #0984e3;
 }
 .grid {
   display: flex;
