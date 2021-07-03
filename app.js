@@ -8,19 +8,20 @@ require('dotenv').config();
 const logger = require('./util/logger');
 const { stream } = logger;
 const morgan = require('morgan');
-const handlebars = require('express-handlebars');
+// const handlebars = require('express-handlebars');
 
 const app = express();
 
-app.engine(
-  'hbs',
-  handlebars({
-    layoutsDir: 'views/layouts/',
-    defaultLayout: 'main-layout',
-    extname: 'hbs',
-  })
-);
-app.set('view engine', 'hbs');
+// app.engine Using only for handlebars
+// app.engine(
+//   'hbs',
+//   handlebars({
+//     layoutsDir: 'views/layouts/',
+//     defaultLayout: 'main-layout',
+//     extname: 'hbs',
+//   })
+// );
+app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 const adminRoutes = require('./routes/admin');
