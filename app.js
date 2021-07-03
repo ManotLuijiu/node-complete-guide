@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const path = require('path');
 const rfs = require('rotating-file-stream');
@@ -9,10 +8,19 @@ require('dotenv').config();
 const logger = require('./util/logger');
 const { stream } = logger;
 const morgan = require('morgan');
+const handlebars = require('express-handlebars');
 
 const app = express();
 
-app.set('view engine', 'pug');
+app.engine(
+  'hbs',
+  handlebars({
+    layoutsDir: 'views/layouts/',
+    defaultLayout: 'main-layout',
+    extname: 'hbs',
+  })
+);
+app.set('view engine', 'hbs');
 app.set('views', 'views');
 
 const adminRoutes = require('./routes/admin');
@@ -24,8 +32,8 @@ const accessLogStream = rfs.createStream('access.log', {
 });
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Morgan

@@ -10,7 +10,14 @@ const router = express.Router();
 
 router.get('/', (req, res, next) => {
   const { products } = adminRoutes;
-  res.render('shop', { prods: products, pageTitle: 'ร้านค้า', path: '/' });
+  res.render('shop', {
+    prods: products,
+    pageTitle: 'ร้านค้า',
+    path: '/',
+    hasProducts: products.length > 0,
+    activeShop: true,
+    productCSS: true,
+  });
 });
 
 module.exports = router;
