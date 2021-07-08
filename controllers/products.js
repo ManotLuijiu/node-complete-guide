@@ -16,14 +16,12 @@ exports.getAddProduct = (req, res, next) => {
 
 exports.postAddProduct = (req, res, next) => {
   const product = new Product(req.body.title);
-  console.log('product:19', product);
   product.save();
   res.redirect('/');
 };
 
 exports.getProducts = (req, res, next) => {
   Product.fetchAll((products) => {
-    console.log('products:26', products);
     res.render('shop', {
       prods: products,
       pageTitle: 'ร้านค้า',
