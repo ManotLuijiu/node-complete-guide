@@ -26,6 +26,7 @@ app.set('views', 'views');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
+const { get404 } = require('./controllers/errors');
 
 const accessLogStream = rfs.createStream('access.log', {
   interval: '1d',
@@ -52,12 +53,11 @@ app.use(
   )
 );
 
-app.use('/admin', adminRoutes.routes);
+app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
-app.use((req, res, next) => {
-  res.status(404).render('404', { pageTitle: 'Page not found' });
-});
+app.use(get404);
+
 const port = process.env.PORT || 3000;
 
 app.listen(port, (err) => {
