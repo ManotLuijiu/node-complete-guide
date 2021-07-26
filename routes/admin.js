@@ -1,9 +1,10 @@
 const express = require('express');
-const { getAddProduct, postAddProduct } = require('../controllers/products');
+const { getAddProduct, postAddProduct } = require('../controllers/admin');
 
 const router = express.Router();
 
 router.get('/add-product', getAddProduct);
+router.get('/products');
 // router.get('/add-product', (req, res, next) => {
 //   res.render('add-product', {
 //     pageTitle: 'เพิ่มสินค้า',
