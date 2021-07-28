@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+/* @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700'); */
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;700&display=swap');
 
 * {
   box-sizing: border-box;
@@ -7,7 +8,11 @@
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
+  color: #333;
+  font-size: 16px;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Sarabun', sans-serif;
 }
 
 main {
@@ -26,6 +31,13 @@ form {
   padding: 0 1.5rem;
   display: flex;
   align-items: center;
+}
+
+.main-header__main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .main-header__nav {
@@ -48,7 +60,7 @@ form {
 
 .main-header__item a {
   text-decoration: none;
-  color: white;
+  color: #ffffff;
 }
 
 .main-header__item a:hover,
@@ -76,6 +88,11 @@ form {
       left: 0;
     }
   }
+}
+
+.main-header__404 {
+  font-size: 4rem;
+  color: #0984e3;
 }
 
 .mobile-nav {
@@ -162,6 +179,13 @@ form {
   align-items: stretch;
 }
 
+.grid > .flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
 .card {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 }
@@ -197,13 +221,14 @@ form {
 }
 
 .btn {
+  font: inherit;
   display: inline-block;
   padding: 0.25rem 1rem;
   text-decoration: none;
   font: inherit;
   border: 1px solid #0984e3;
   color: #0984e3;
-  background: white;
+  background: #ffffff;
   border-radius: 3px;
   cursor: pointer;
 }
@@ -211,7 +236,7 @@ form {
 .btn:hover,
 .btn:active {
   background-color: #0984e3;
-  color: white;
+  color: #ffffff;
 }
 
 @media (min-width: 768px) {

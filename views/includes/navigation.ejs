@@ -2,33 +2,35 @@
   <nav class="main-header__nav">
     <ul class="main-header__item-list">
       <li class="main-header__item">
-        <a class="<%= path === '/' ? 'active' : '' %>" href="/">Shop</a>
+        <a class="<%= path === '/' ? 'active' : '' %>" href="/">ร้านค้า</a>
       </li>
       <li class="main-header__item">
         <a class="<%= path === '/products' ? 'active' : '' %>" href="/products"
-          >Products</a
+          >สินค้า</a
         >
       </li>
       <li class="main-header__item">
-        <a class="<%= path === '/cart' ? 'active' : '' %>" href="/cart">Cart</a>
+        <a class="<%= path === '/cart' ? 'active' : '' %>" href="/cart"
+          >ตะกร้าสินค้า</a
+        >
       </li>
       <li class="main-header__item">
         <a class="<%= path === '/orders' ? 'active' : '' %>" href="/orders"
-          >Orders</a
+          >ใบสั่งซื้อ</a
         >
       </li>
       <li class="main-header__item">
         <a
           class="<%= path === '/admin/add-product' ? 'active' : '' %>"
           href="/admin/add-product"
-          >Add Product</a
+          >เพิ่มสินค้า</a
         >
       </li>
       <li class="main-header__item">
         <a
           class="<%= path === '/admin/products' ? 'active' : '' %>"
           href="/admin/products"
-          >Admin Products</a
+          >จัดการสินค้า</a
         >
       </li>
     </ul>
