@@ -33,7 +33,40 @@
   font-weight: 600;
 }
 
+.container-product {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.details {
+  display: flex;
+}
+
+.details > img {
+  flex: 0 1;
+  width: 250px;
+  height: 250px;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.description > img {
+  width: auto;
+  height: 250px;
+}
+
+.description > p {
+  font-size: 1.2rem;
+}
 .no-product {
-  font-size: 3em;
+  font-size: 4rem;
   color: #0984e3;
 }

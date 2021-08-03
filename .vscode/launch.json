@@ -5,21 +5,6 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "aws-sam",
-      "request": "direct-invoke",
-      "name": "nodejs-complete-guide:controllers/admin.getProducts (nodejs14.x)",
-      "invokeTarget": {
-        "target": "code",
-        "projectRoot": "${workspaceFolder}/",
-        "lambdaHandler": "controllers/admin.getProducts"
-      },
-      "lambda": {
-        "runtime": "nodejs14.x",
-        "payload": {},
-        "environmentVariables": {}
-      }
-    },
-    {
       "type": "pwa-node",
       "request": "launch",
       "name": "Launch Program",

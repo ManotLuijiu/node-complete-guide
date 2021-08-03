@@ -9,8 +9,9 @@ const p = path.join(
 );
 
 const getProductsFromFile = (cb) => {
-  readFile(p, 'utf-8', (err, data) => {
+  readFile(p, 'utf8', (err, data) => {
     if (err) {
+      console.log(err);
       cb([]);
     } else {
       cb(JSON.parse(data));
@@ -19,11 +20,11 @@ const getProductsFromFile = (cb) => {
 };
 
 module.exports = class Product {
-  constructor(title, imageUrl, description, price) {
+  constructor(title, imageUrl, price, description) {
     this.title = title;
     this.imageUrl = imageUrl;
-    this.description = description;
     this.price = price;
+    this.description = description;
   }
 
   save() {
@@ -38,5 +39,54 @@ module.exports = class Product {
 
   static fetchAll(cb) {
     getProductsFromFile(cb);
+  }
+
+  static findByIdCart(id, cb) {
+    readFile(p, 'utf8', (err, data) => {
+      if (err) {
+        console.log(err);
+        cb([]);
+      } else {
+        console.log('data', data);
+        console.log('id', id);
+        const single = JSON.parse(data);
+        console.log('single', single);
+        const product = single.find(function (p, index) {
+          console.log(p.id);
+          console.log(typeof p.id);
+          p.id == id;
+          return true;
+        });
+        console.log('product', product);
+        cb(product);
+      }
+    });
+  }
+
+  static findById(id, cb) {
+    getProductsFromFile((products) => {
+      console.log('findById_length', products.length);
+      //   console.log('findById_type', typeof products);
+      //   console.log('findById_Products', products);
+      console.log('findById_Products_up', id);
+      //   console.log('findById_Products', typeof id);
+      //   const product = products.find((p) => {
+      //     console.log(p.id === id);
+      //     // p.id === id;
+      //   });
+      const p_test = products.find((p) => {
+        console.log('p_test_id', p.id);
+        console.log('p_test_id', typeof p.id);
+        if (p.id === id) {
+          console.log('True');
+        } else {
+          console.log('False');
+        }
+      });
+      const product = products.find((p) => p.id === id);
+      console.log('findById_id', product.id);
+      console.log('findById_product', product);
+      cb(product);
+    });
   }
 };

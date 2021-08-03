@@ -8,13 +8,14 @@
         <div class="container-product">
             <h1>Details of <%= product.title %></h1>
             <div class="details">
-                <img src="<%= product.imageUrl %>" alt="<%= product.title %>" srcset="">
                 <div class="description">
+                    <img src="<%= product.imageUrl %>" alt="<%= product.title %>" srcset="">
 
                     <p>ราคา: <%= product.price %></p>
                     <p>รายละเอียด: <%= product.description %></p>
                 </div>
             </div>
+            <%- include('../includes/add-to-cart.ejs') %>
     
     
         </div>

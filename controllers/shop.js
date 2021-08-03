@@ -1,4 +1,6 @@
 const Product = require('../models/Product');
+const Cart = require('../models/Cart');
+
 // console.log('Type of Product is ', typeof Product);
 // console.log('Product ', Product);
 // console.log('Product ', Product === Product.prototype.constructor);
@@ -13,6 +15,20 @@ exports.getProducts = (req, res, next) => {
       path: '/products',
     });
   });
+};
+
+exports.getProduct = (req, res, next) => {
+  //   console.log('getProduct', req);
+  const prodId = req.params.prodId;
+  Product.findById(prodId, (product) => {
+    // console.log(product);
+    res.render('shop/product', {
+      product,
+      pageTitle: `Product: ${product.title}`,
+      path: '/products',
+    });
+  });
+  //   res.redirect('/');
 };
 
 exports.getIndex = (req, res, next) => {
@@ -30,6 +46,35 @@ exports.getCart = (req, res, next) => {
     path: '/cart',
     pageTitle: 'ตะกร้าสินค้า',
   });
+};
+
+exports.postCart = (req, res, next) => {
+  //   console.log('postCart_req', req);
+  //   console.log('postCart_res', res);
+
+  const { prodId } = req.body;
+  console.log('postCart', prodId);
+  console.log('postCart', typeof prodId);
+
+  //   Product.fetchAll((products) => {
+  //     console.log(products.length);
+  //     console.log(typeof products);
+  //     console.log('fetchAll', products);
+  //   });
+
+  Product.findByIdCart(prodId, (product) => {
+    const { price } = product;
+    console.log('findByIdCart_in_shop.js', price);
+    Cart.addProduct(prodId, price);
+  });
+
+  //   Product.findById(prodId, (product) => {
+  //     console.log('prodId', prodId);
+  //     console.log('product', product.length);
+  //     console.log('product', product.price);
+  //     Cart.addProduct(prodId, '19.99');
+  //   });
+  res.redirect('/cart');
 };
 
 exports.getOrders = (req, res, next) => {
