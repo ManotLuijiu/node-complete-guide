@@ -24,7 +24,7 @@ exports.getProduct = (req, res, next) => {
     // console.log(product);
     res.render('shop/product', {
       product,
-      pageTitle: `Product: ${product.title}`,
+      pageTitle: `สินค้า: ${product.title}`,
       path: '/products',
     });
   });
@@ -35,7 +35,7 @@ exports.getIndex = (req, res, next) => {
   Product.fetchAll((products) => {
     res.render('shop/index', {
       prods: products,
-      pageTitle: 'Shop',
+      pageTitle: 'ร้านค้า',
       path: '/',
     });
   });
@@ -99,6 +99,14 @@ exports.postCart = (req, res, next) => {
   //     Cart.addProduct(prodId, '19.99');
   //   });
   res.redirect('/cart');
+};
+
+exports.postCartDeleteProduct = (req, res, nest) => {
+  const { prodId } = req.body;
+  Product.findById(prodId, (product) => {
+    Cart.deleteProduct(prodId, product.price);
+    res.redirect('/cart');
+  });
 };
 
 exports.getOrders = (req, res, next) => {

@@ -50,7 +50,7 @@ module.exports = class Cart {
       if (err) {
         return;
       }
-      const updatedCart = { ...JSON.parse(data) };
+      let updatedCart = { ...JSON.parse(data) };
       console.log('updatedCart_deleted', updatedCart);
       console.log(id);
       const product = updatedCart.products.find(function (p, index) {
@@ -58,18 +58,18 @@ module.exports = class Cart {
         p.id == id;
         return true;
       });
+      if (!product) {
+        return;
+      }
       console.log('product', product);
-      console.log('product', product.length);
       const productQty = product.qty;
       console.log('productQty', productQty);
-      updatedCart.products = updatedCart.products.filter(
-        function (product, index, arr) {
-          console.log('product_inside_filter', product.id);
-          return (product) => product.id === id;
-        }
-        // (product) => product.id !== id
-      );
-      console.log('updated cart', updatedCart.products);
+      console.log('updatedCart_type', typeof updatedCart);
+      const { products } = updatedCart;
+      console.log('products', products);
+      console.log('products_type', typeof products);
+      updatedCart.products = products.filter((product) => product.id !== id);
+      console.log('updated_cart', updatedCart.products);
       updatedCart.totalPrice = updatedCart.totalPrice - prodPrice * productQty;
       writeFile(p, JSON.stringify(updatedCart), 'utf8', (err) => {
         if (err) throw err;

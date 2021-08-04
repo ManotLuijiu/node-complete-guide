@@ -1,7 +1,7 @@
 const Product = require('../models/Product');
 exports.getAddProduct = (req, res, next) => {
   res.render('admin/edit-product', {
-    pageTitle: 'Add Product',
+    pageTitle: 'เพิ่มสินค้า',
     path: '/admin/add-product',
     editing: false,
   });
@@ -25,7 +25,7 @@ exports.getEditProduct = (req, res, next) => {
       return res.redirect('/');
     }
     res.render('admin/edit-product', {
-      pageTitle: 'Edit Product',
+      pageTitle: 'แก้ไขสินค้า',
       path: '/admin/edit-product',
       editing: editMode,
       product,
@@ -54,7 +54,7 @@ exports.getProducts = (req, res, next) => {
   Product.fetchAll((products) => {
     res.render('admin/products', {
       prods: products,
-      pageTitle: 'Admin Products',
+      pageTitle: 'จัดการสินค้า',
       path: '/admin/products',
     });
   });
