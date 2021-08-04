@@ -39,9 +39,53 @@ module.exports = class Cart {
       }
       cart.totalPrice = cart.totalPrice + +productPrice;
       console.log(cart);
-      writeFileSync(p, JSON.stringify(cart), 'utf8', (err) => {
+      writeFile(p, JSON.stringify(cart), 'utf8', (err) => {
         console.log(err);
       });
+    });
+  }
+
+  static deleteProduct(id, prodPrice) {
+    readFile(p, 'utf8', (err, data) => {
+      if (err) {
+        return;
+      }
+      const updatedCart = { ...JSON.parse(data) };
+      console.log('updatedCart_deleted', updatedCart);
+      console.log(id);
+      const product = updatedCart.products.find(function (p, index) {
+        console.log(p.id);
+        p.id == id;
+        return true;
+      });
+      console.log('product', product);
+      console.log('product', product.length);
+      const productQty = product.qty;
+      console.log('productQty', productQty);
+      updatedCart.products = updatedCart.products.filter(
+        function (product, index, arr) {
+          console.log('product_inside_filter', product.id);
+          return (product) => product.id === id;
+        }
+        // (product) => product.id !== id
+      );
+      console.log('updated cart', updatedCart.products);
+      updatedCart.totalPrice = updatedCart.totalPrice - prodPrice * productQty;
+      writeFile(p, JSON.stringify(updatedCart), 'utf8', (err) => {
+        if (err) throw err;
+        console.log('The file has been saved!');
+      });
+    });
+  }
+
+  static getCart(cb) {
+    readFile(p, (err, data) => {
+      const cart = JSON.parse(data);
+      if (err) {
+        cb(null);
+      } else {
+        cb(cart);
+      }
     });
   }
 };
